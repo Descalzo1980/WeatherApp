@@ -1,9 +1,9 @@
-package dev.stas.weatherapp
+package dev.stas.weatherapp.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import dev.stas.weatherapp.ui.theme.WeatherAppTheme
+import dev.stas.weatherapp.presentation.ui.theme.WeatherAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
