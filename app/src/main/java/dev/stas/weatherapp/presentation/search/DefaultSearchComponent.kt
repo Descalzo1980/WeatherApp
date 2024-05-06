@@ -4,6 +4,9 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.extensions.coroutines.labels
 import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dev.stas.weatherapp.domain.entity.City
 import dev.stas.weatherapp.presentation.extensions.componentScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -11,14 +14,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class DefaultSearchComponent @Inject constructor(
-    private val openReason: OpenReason,
+class DefaultSearchComponent @AssistedInject constructor(
     private val searchStoreFactory: SearchStoreFactory,
-    private val onBackClick: () -> Unit,
-    private val onCitySavedFavorite: () -> Unit,
-    private val onForecastForCityRequested: (City) -> Unit,
-    componentContext: ComponentContext
-) : SearchComponent, ComponentContext by componentContext{
+    @Assisted("openReason") private val openReason: OpenReason,
+    @Assisted("onBackClick") private val onBackClick: () -> Unit,
+    @Assisted("onCitySavedFavorite") private val onCitySavedFavorite: () -> Unit,
+    @Assisted("onForecastForCityRequested") private val onForecastForCityRequested: (City) -> Unit,
+    @Assisted("componentContext") componentContext: ComponentContext
+) : SearchComponent, ComponentContext by componentContext {
 
     private val store = instanceKeeper.getStore { searchStoreFactory.create(openReason) }
     private val scope = componentScope()
@@ -26,13 +29,15 @@ class DefaultSearchComponent @Inject constructor(
     init {
         scope.launch {
             store.labels.collect {
-                when(it){
+                when (it) {
                     SearchStore.Label.ClickBack -> {
                         onBackClick()
                     }
+
                     is SearchStore.Label.OpenForecast -> {
                         onForecastForCityRequested(it.city)
                     }
+
                     SearchStore.Label.SavedToFavorite -> {
                         onCitySavedFavorite()
                     }
@@ -40,6 +45,7 @@ class DefaultSearchComponent @Inject constructor(
             }
         }
     }
+
     @OptIn(ExperimentalCoroutinesApi::class)
     override val model: StateFlow<SearchStore.State> = store.stateFlow
 
@@ -59,4 +65,14 @@ class DefaultSearchComponent @Inject constructor(
         store.accept(SearchStore.Intent.ClickCity(city))
     }
 
+    @AssistedFactory
+    interface Factory {
+        fun create(
+            @Assisted("openReason") openReason: OpenReason,
+            @Assisted("onBackClick") onBackClick: () -> Unit,
+            @Assisted("onCitySavedFavorite") onCitySavedFavorite: () -> Unit,
+            @Assisted("onForecastForCityRequested") onForecastForCityRequested: (City) -> Unit,
+            @Assisted("componentContext") componentContext: ComponentContext
+        ): DefaultSearchComponent
+    }
 }
