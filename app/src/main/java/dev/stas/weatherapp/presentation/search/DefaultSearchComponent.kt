@@ -12,7 +12,6 @@ import dev.stas.weatherapp.presentation.extensions.componentScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class DefaultSearchComponent @AssistedInject constructor(
     private val searchStoreFactory: SearchStoreFactory,
@@ -70,7 +69,7 @@ class DefaultSearchComponent @AssistedInject constructor(
         fun create(
             @Assisted("openReason") openReason: OpenReason,
             @Assisted("onBackClick") onBackClick: () -> Unit,
-            @Assisted("onCitySavedFavorite") onCitySavedFavorite: () -> Unit,
+            @Assisted("onCitySavedFavorite") onCitySavedToFavorite: () -> Unit,
             @Assisted("onForecastForCityRequested") onForecastForCityRequested: (City) -> Unit,
             @Assisted("componentContext") componentContext: ComponentContext
         ): DefaultSearchComponent
