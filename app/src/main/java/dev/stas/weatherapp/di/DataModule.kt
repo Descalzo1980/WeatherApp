@@ -5,7 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dev.stas.weatherapp.data.local.db.FavoriteDataBase
-import dev.stas.weatherapp.data.local.db.FavoritesCitiesDao
+import dev.stas.weatherapp.data.local.db.FavouriteCitiesDao
 import dev.stas.weatherapp.data.network.api.ApiFactory
 import dev.stas.weatherapp.data.network.api.ApiService
 import dev.stas.weatherapp.data.repository.FavoriteRepositoryImpl
@@ -34,7 +34,7 @@ interface DataModule {
             return FavoriteDataBase.getInstance(context)
         }
         @[ApplicationScope Provides]
-        fun provideFavoriteCitiesDao(dataBase: FavoriteDataBase): FavoritesCitiesDao{
+        fun provideFavoriteCitiesDao(dataBase: FavoriteDataBase): FavouriteCitiesDao {
             return dataBase.favoritesCitiesDao()
         }
     }
