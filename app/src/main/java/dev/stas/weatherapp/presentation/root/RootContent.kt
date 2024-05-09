@@ -3,7 +3,6 @@ package dev.stas.weatherapp.presentation.root
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.extensions.compose.jetpack.stack.Children
 import dev.stas.weatherapp.presentation.details.DetailsContent
-import dev.stas.weatherapp.presentation.favorite.FavoriteComponent
 import dev.stas.weatherapp.presentation.favorite.FavoriteContent
 import dev.stas.weatherapp.presentation.search.SearchContent
 import dev.stas.weatherapp.presentation.ui.theme.WeatherAppTheme
