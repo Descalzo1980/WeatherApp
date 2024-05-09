@@ -130,7 +130,7 @@ class DetailStoreFactory @Inject constructor(
         override fun executeAction(action: Action, getState: () -> State) {
             when(action){
                 is Action.FavoriteStatusChange -> {
-                    dispatch(Msg.FavoriteStatusChange(getState().isFavorite))
+                    dispatch(Msg.FavoriteStatusChange(action.isFavorite))
                 }
                 is Action.ForecastLoaded -> {
                     dispatch(Msg.ForecastLoaded(action.forecast))
