@@ -9,7 +9,7 @@ import dev.stas.weatherapp.data.local.model.CityDBModel
 @Database(entities = [CityDBModel::class], version = 1, exportSchema = false)
 abstract class FavoriteDataBase: RoomDatabase() {
 
-    abstract fun favoritesCitiesDao(): FavoritesCitiesDao
+    abstract fun favoritesCitiesDao(): FavouriteCitiesDao
 
     companion object {
 

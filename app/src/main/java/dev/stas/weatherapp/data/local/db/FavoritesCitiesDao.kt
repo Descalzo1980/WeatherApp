@@ -8,15 +8,17 @@ import dev.stas.weatherapp.data.local.model.CityDBModel
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface FavoritesCitiesDao {
+interface FavouriteCitiesDao {
+
     @Query("SELECT * FROM favorites_cities")
-    fun getFavoritesCities(): Flow<List<CityDBModel>>
+    fun getFavouriteCities(): Flow<List<CityDBModel>>
 
     @Query("SELECT EXISTS (SELECT * FROM favorites_cities WHERE id=:cityId LIMIT 1)")
-    fun observeIsFavorites(cityId: Int): Flow<Boolean>
+    fun observeIsFavourite(cityId: Int): Flow<Boolean>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addToFavorite(cityDBModel: CityDBModel)
+    suspend fun addToFavourite(cityDbModel: CityDBModel)
+
     @Query("DELETE FROM favorites_cities WHERE id=:cityId")
-    suspend fun removeFromFavorite(cityId: Int)
+    suspend fun removeFromFavourite(cityId: Int)
 }

@@ -19,23 +19,10 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var rootComponentFactory: DefaultRootComponent.Factory
 
-    @Inject
-    lateinit var searchCityUseCase: SearchCityUseCase
-
-    @Inject
-    lateinit var changeFavoriteStateUseCase: ChangeFavoriteStateUseCase
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as WeatherApp).applicationComponent.inject(this)
+        (applicationContext as WeatherApp).applicationComponent.inject(this)
 
         super.onCreate(savedInstanceState)
-
-        val scope = CoroutineScope(Dispatchers.Main)
-
-        scope.launch {
-            searchCityUseCase("пон").forEach {
-                changeFavoriteStateUseCase.addToFavorite(city = it)
-            }
-        }
         setContent {
             RootContent(component = rootComponentFactory.create(defaultComponentContext()))
         }

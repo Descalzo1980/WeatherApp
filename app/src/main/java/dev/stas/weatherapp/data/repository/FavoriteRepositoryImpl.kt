@@ -1,6 +1,6 @@
 package dev.stas.weatherapp.data.repository
 
-import dev.stas.weatherapp.data.local.db.FavoritesCitiesDao
+import dev.stas.weatherapp.data.local.db.FavouriteCitiesDao
 import dev.stas.weatherapp.data.mapper.toDBModel
 import dev.stas.weatherapp.data.mapper.toEntities
 import dev.stas.weatherapp.domain.entity.City
@@ -10,19 +10,19 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class FavoriteRepositoryImpl @Inject constructor(
-    private val favoriteCitiesDao: FavoritesCitiesDao
+    private val favoriteCitiesDao: FavouriteCitiesDao
 ): FavoriteRepository {
 
     override val favoriteCities: Flow<List<City>> =
-        favoriteCitiesDao.getFavoritesCities()
+        favoriteCitiesDao.getFavouriteCities()
             .map { it.toEntities() }
 
     override fun observeIsFavorite(cityId: Int): Flow<Boolean> =
-        favoriteCitiesDao.observeIsFavorites(cityId)
+        favoriteCitiesDao.observeIsFavourite(cityId)
 
     override suspend fun addToFavorite(city: City) =
-        favoriteCitiesDao.addToFavorite(city.toDBModel())
+        favoriteCitiesDao.addToFavourite(city.toDBModel())
 
     override suspend fun removeFromFavorite(cityId: Int) =
-        favoriteCitiesDao.removeFromFavorite(cityId)
+        favoriteCitiesDao.removeFromFavourite(cityId)
 }
