@@ -3,4 +3,6 @@
     <string name="add_favorite">Add favorite</string>
     <string name="search">Search</string>
     <string name="upcoming">Upcoming</string>
+    <string name="empty_result_text">По вашему запросу ничего не найдено</string>
+    <string name="error_result_text">Произошла ошибка, попробуйте позже</string>
 </resources>
