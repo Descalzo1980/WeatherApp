@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlin.math.roundToInt
 
 fun ComponentContext.componentScope() =
     CoroutineScope(
@@ -15,3 +16,5 @@ fun ComponentContext.componentScope() =
             cancel()
         }
     }
+
+fun Float.tempToFormattedString(): String = "${roundToInt()}°C"
